@@ -1,11 +1,14 @@
 package com.example.schedulemanagement.entity;
 
+import com.example.schedulemanagement.dto.SMRequestDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @AllArgsConstructor
 public class ScheduelManagement {
+    @Setter
     private Long id;
     private String todo;
     private String name;
@@ -21,5 +24,10 @@ public class ScheduelManagement {
         this.name=name;
         this.password=password;
         this.date=date;
+    }
+
+    public void updateSMById(String todo, String name){
+        this.todo=todo;
+        this.name=name;
     }
 }
