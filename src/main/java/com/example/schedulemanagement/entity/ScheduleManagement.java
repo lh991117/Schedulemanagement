@@ -1,21 +1,18 @@
 package com.example.schedulemanagement.entity;
 
-import com.example.schedulemanagement.dto.SMRequestDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
 @AllArgsConstructor
-public class ScheduelManagement {
-    @Setter
+public class ScheduleManagement {
     private Long id;
     private String todo;
     private String name;
     private String password;
     private String date;
 
-    public ScheduelManagement(
+    public ScheduleManagement(
             String todo,
             String name,
             String password,
