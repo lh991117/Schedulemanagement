@@ -1,18 +1,18 @@
 package com.example.schedulemanagement.repository;
 
 import com.example.schedulemanagement.dto.SMResponseDto;
-import com.example.schedulemanagement.entity.ScheduelManagement;
-import org.springframework.stereotype.Repository;
+import com.example.schedulemanagement.entity.ScheduleManagement;
 
 import java.util.*;
 
-@Repository
 public interface SMRepository {
-    ScheduelManagement saveSM(ScheduelManagement sm);
+    SMResponseDto saveSM(ScheduleManagement sm);
 
     List<SMResponseDto> findAllMemos();
 
-    ScheduelManagement findSMById(Long id);
+    Optional<ScheduleManagement> findSMById(Long id);
 
-    void deleteSM(Long id);
+    int updateSM(Long id, String todo, String name);
+
+    int deleteSM(Long id);
 }

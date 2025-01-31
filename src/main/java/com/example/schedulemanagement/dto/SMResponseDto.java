@@ -1,6 +1,6 @@
 package com.example.schedulemanagement.dto;
 
-import com.example.schedulemanagement.entity.ScheduelManagement;
+import com.example.schedulemanagement.entity.ScheduleManagement;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -13,11 +13,11 @@ public class SMResponseDto {
     private String password;
     private String date;
 
-    public SMResponseDto(ScheduelManagement scheduelManagement) {
-        this.id = scheduelManagement.getId();
-        this.todo=scheduelManagement.getTodo();
-        this.name=scheduelManagement.getName();
-        this.password=scheduelManagement.getPassword();
-        this.date=scheduelManagement.getDate();
+    public SMResponseDto(ScheduleManagement scheduleManagement) {
+        this.id = scheduleManagement.getId();
+        this.todo = scheduleManagement.getTodo();
+        this.name = scheduleManagement.getName();
+        this.password = scheduleManagement.getPassword();
+        this.date = scheduleManagement.getDate();
     }
 }
