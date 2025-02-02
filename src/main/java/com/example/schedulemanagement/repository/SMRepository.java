@@ -10,9 +10,11 @@ public interface SMRepository {
 
     List<SMResponseDto> findAllMemos();
 
+    List<SMResponseDto> findAllSchedules(String date, String name);
+
     Optional<ScheduleManagement> findSMById(Long id);
 
-    int updateSM(Long id, String todo, String name);
+    int updateSM(Long id, String password, String todo, String name, String date);
 
-    int deleteSM(Long id);
+    int deleteSM(Long id, String password);
 }

@@ -10,6 +10,8 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Service
 public class SMServiceImpl implements SMService{
@@ -21,7 +23,7 @@ public class SMServiceImpl implements SMService{
 
     @Override
     public SMResponseDto saveSM(SMRequestDto dto) {
-        ScheduleManagement sm=new ScheduleManagement(dto.getTodo(), dto.getName(), dto.getPassword(), dto.getDate());
+        ScheduleManagement sm=new ScheduleManagement(dto.getTodo(), dto.getName(), dto.getPassword());
 
         return smRepository.saveSM(sm);
     }
@@ -31,6 +33,11 @@ public class SMServiceImpl implements SMService{
         List<SMResponseDto> allSMs=smRepository.findAllMemos();
 
         return allSMs;
+    }
+
+    @Override
+    public List<SMResponseDto> findAllSMs(String date, String name) {
+        return smRepository.findAllSchedules(date, name);
     }
 
     @Override
@@ -45,12 +52,12 @@ public class SMServiceImpl implements SMService{
     }
 
     @Override
-    public SMResponseDto updateSMById(Long id, String todo, String name, String password, String date) {
-        if(todo==null || name==null || password!=null || date!=null){
+    public SMResponseDto updateSMByPassword(Long id, String todo, String name, String password, String date) {
+        if(todo==null || name==null){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Todo and Name are required value.");
         }
 
-        int updateRow=smRepository.updateSM(id, todo, name);
+        int updateRow=smRepository.updateSM(id, password, todo, name, LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
 
         if(updateRow==0){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No data has been modified.");
@@ -60,11 +67,11 @@ public class SMServiceImpl implements SMService{
     }
 
     @Override
-    public void deleteSM(Long id) {
-        int deleteRow=smRepository.deleteSM(id);
+    public void deleteSM(Long id, String password) {
+        int deleteRow=smRepository.deleteSM(id, password);
 
         if(deleteRow==0){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Does not exist id = "+id);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Does not exist password = "+password);
         }
     }
 }

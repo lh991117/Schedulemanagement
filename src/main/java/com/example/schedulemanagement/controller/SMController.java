@@ -29,19 +29,24 @@ public class SMController {
         return smService.findAllSMs();
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<List<SMResponseDto>> findAllSMs(@RequestParam(required = false) String date, @RequestParam(required = false) String name) {
+        return new ResponseEntity<>(smService.findAllSMs(date, name), HttpStatus.OK);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<SMResponseDto> findSMById(@PathVariable Long id) {
         return new ResponseEntity<>(smService.findSMById(id), HttpStatus.OK);
     }
 
-    @PatchMapping("/{id}")
-    public ResponseEntity<SMResponseDto> updateSMById(@PathVariable Long id, @RequestBody SMRequestDto dto) {
-        return new ResponseEntity<>(smService.updateSMById(id, dto.getTodo(), dto.getName(), dto.getPassword(), dto.getDate()), HttpStatus.OK);
+    @PatchMapping("/{id}/{password}")
+    public ResponseEntity<SMResponseDto> updateSMById(@PathVariable Long id,@PathVariable String password, @RequestBody SMRequestDto dto) {
+        return new ResponseEntity<>(smService.updateSMByPassword(id, dto.getTodo(), dto.getName(), password, dto.getDate()), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteSM(@PathVariable Long id) {
-        smService.deleteSM(id);
+    @DeleteMapping("/{id}/{password}")
+    public ResponseEntity<Void> deleteSM(@PathVariable Long id,@PathVariable String password) {
+        smService.deleteSM(id, password);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }

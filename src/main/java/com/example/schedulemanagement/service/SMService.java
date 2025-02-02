@@ -10,9 +10,11 @@ public interface SMService {
 
     List<SMResponseDto> findAllSMs();
 
+    List<SMResponseDto> findAllSMs(String date, String name);
+
     SMResponseDto findSMById(Long id);
 
-    SMResponseDto updateSMById(Long id, String todo, String name, String password, String date);
+    SMResponseDto updateSMByPassword(Long id, String todo, String name, String password, String date);
 
-    void deleteSM(Long id);
+    void deleteSM(Long id, String password);
 }

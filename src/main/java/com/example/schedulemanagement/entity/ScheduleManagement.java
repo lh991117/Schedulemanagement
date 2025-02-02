@@ -3,6 +3,9 @@ package com.example.schedulemanagement.entity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 @Getter
 @AllArgsConstructor
 public class ScheduleManagement {
@@ -15,16 +18,11 @@ public class ScheduleManagement {
     public ScheduleManagement(
             String todo,
             String name,
-            String password,
-            String date) {
+            String password
+    ) {
         this.todo=todo;
         this.name=name;
         this.password=password;
-        this.date=date;
-    }
-
-    public void updateSMById(String todo, String name){
-        this.todo=todo;
-        this.name=name;
+        this.date=LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     }
 }
