@@ -39,7 +39,25 @@ public class JdbcTemplateSMRepository implements SMRepository {
 
     @Override
     public List<SMResponseDto> findAllMemos() {
-        return jdbcTemplate.query("select * from scheduel", smRowMapper());
+        return jdbcTemplate.query("select * from scheduel order by date desc", smRowMapper());
+    }
+
+    @Override
+    public List<SMResponseDto> findAllSchedules(String date, String name) {
+        String sql="select * from scheduel where 1=1";
+        List<Object> params = new ArrayList<>();
+
+        if(date!=null){
+            sql+=" and date like ?";
+            params.add(date+"%");
+        }
+        if(name!=null && !name.isEmpty()){
+            sql+=" and name = ?";
+            params.add(name);
+        }
+        sql+=" order by date desc";
+
+        return jdbcTemplate.query(sql, params.toArray(),smRowMapper());
     }
 
     @Override
@@ -50,13 +68,13 @@ public class JdbcTemplateSMRepository implements SMRepository {
     }
 
     @Override
-    public int updateSM(Long id, String todo, String name) {
-        return jdbcTemplate.update("update scheduel set todo = ?, name = ? where id = ?", todo, name, id);
+    public int updateSM(Long id, String password, String todo, String name, String date) {
+        return jdbcTemplate.update("update scheduel set todo = ?, name = ?, date = ? where id = ? and password = ?", todo, name, date, id, password);
     }
 
     @Override
-    public int deleteSM(Long id) {
-        return jdbcTemplate.update("delete from scheduel where id = ?", id);
+    public int deleteSM(Long id, String password) {
+        return jdbcTemplate.update("delete from scheduel where id = ? and password = ?", id, password);
     }
 
     private RowMapper<SMResponseDto> smRowMapper() {
