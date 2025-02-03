@@ -18,32 +18,32 @@ public class SMController {
         this.smService = smService;
     }
 
+    //요청 받은 값을 저장
     @PostMapping
     public ResponseEntity<SMResponseDto> createSM(@RequestBody SMRequestDto dto) {
-
         return new ResponseEntity<>(smService.saveSM(dto), HttpStatus.CREATED);
     }
 
-    @GetMapping
-    public List<SMResponseDto> findAllSMs() {
-        return smService.findAllSMs();
-    }
-
+    //사용하는 유저에게 date나 name 값을 입력 받고 조회하여 출력
+    //date와 name값이 null 값으로 들어올 수 있다.(이런 경우에는 전체 조회)
     @GetMapping("/search")
     public ResponseEntity<List<SMResponseDto>> findAllSMs(@RequestParam(required = false) String date, @RequestParam(required = false) String name) {
         return new ResponseEntity<>(smService.findAllSMs(date, name), HttpStatus.OK);
     }
 
+    //사용하는 유저에게 id값을 입력 받고 조회하여 출력
     @GetMapping("/{id}")
     public ResponseEntity<SMResponseDto> findSMById(@PathVariable Long id) {
         return new ResponseEntity<>(smService.findSMById(id), HttpStatus.OK);
     }
 
+    //사용하는 유저에게 id, password 값을 입력 받고 해당 위치의 값을 수정
     @PatchMapping("/{id}/{password}")
     public ResponseEntity<SMResponseDto> updateSMById(@PathVariable Long id,@PathVariable String password, @RequestBody SMRequestDto dto) {
         return new ResponseEntity<>(smService.updateSMByPassword(id, dto.getTodo(), dto.getName(), password, dto.getDate()), HttpStatus.OK);
     }
 
+    //사용하는 유저에게 id, password 값을 입력 받고 해당 위치의 값을 삭제
     @DeleteMapping("/{id}/{password}")
     public ResponseEntity<Void> deleteSM(@PathVariable Long id,@PathVariable String password) {
         smService.deleteSM(id, password);

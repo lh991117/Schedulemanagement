@@ -10,3 +10,4 @@
 |  일정 삭제   | DELETE | /api/schedules/{id}/{password} | 요청 Param |    -     | 200:정상삭제 |
 
 ## ERD
+![image](https://github.com/user-attachments/assets/6fa0afdf-f3fd-43f3-85f3-e1fdad73aea2)

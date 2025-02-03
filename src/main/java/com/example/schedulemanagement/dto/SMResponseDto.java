@@ -13,6 +13,7 @@ public class SMResponseDto {
     private String password;
     private String date;
 
+    //ScheduleManagement에 있는 값을 가져와 응답한다.
     public SMResponseDto(ScheduleManagement scheduleManagement) {
         this.id = scheduleManagement.getId();
         this.todo = scheduleManagement.getTodo();
