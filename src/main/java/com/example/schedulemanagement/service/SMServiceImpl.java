@@ -29,13 +29,6 @@ public class SMServiceImpl implements SMService{
     }
 
     @Override
-    public List<SMResponseDto> findAllSMs() {
-        List<SMResponseDto> allSMs=smRepository.findAllMemos();
-
-        return allSMs;
-    }
-
-    @Override
     public List<SMResponseDto> findAllSMs(String date, String name) {
         return smRepository.findAllSchedules(date, name);
     }

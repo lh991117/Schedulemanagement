@@ -8,8 +8,6 @@ import java.util.*;
 public interface SMRepository {
     SMResponseDto saveSM(ScheduleManagement sm);
 
-    List<SMResponseDto> findAllMemos();
-
     List<SMResponseDto> findAllSchedules(String date, String name);
 
     Optional<ScheduleManagement> findSMById(Long id);
